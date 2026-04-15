@@ -5,3 +5,41 @@
   --quaternary: #00ff00;
 
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--secondary);
+  font-family: 'Poppins', sans-serif;
+  color: var(--primary);
+  box-sizing: border-box;
+
+}
+
+.Navbar {
+  height: auto;
+  width: auto;
+  background-color: var(--primary);
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+
+  border-radius: 50%;
+  background-color: var(--secondary);
+  padding: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--tertiary);
+
+  .Navbar h2 {
+    display: flex;
+
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+  }
+}
