@@ -2,6 +2,7 @@ import React from 'react'
 import './index.css'
 import logo from './assets/IngreChef logo design.png'
 import { RiMenuLine } from "react-icons/ri";
+import Recipe_Card from './Recipe_Card';
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
           </div>
         </section>
       </main>
+
     </div>
   )
 }
