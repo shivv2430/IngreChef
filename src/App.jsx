@@ -12,7 +12,7 @@ const App = () => {
   const [searchLabel, setSearchLabel] = useState("");
 
   const API_URL = "https://api.api-ninjas.com/v1/recipe";
-  const API_KEY = "DMdVb4MLelGInRco0YBV0deoJoaXtP11XfgNOXoq";
+  const API_KEY = "api-key";
 
   const performFetch = async (term) => {
     const response = await fetch(`${API_URL}?query=${term}`, {
