@@ -338,4 +338,57 @@ button:hover {
   max-width: 1200px;
   margin: 40px auto;
   padding: 0 20px;
+  min-height: 200px;
+}
+
+.loading-state, .no-results-state {
+  grid-column: 1 / -1;
+  padding: 60px;
+  background: var(--glass);
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.search-fallback-label {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--accent-orange);
+  margin-bottom: 20px;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  width: fit-content;
+  margin: 0 auto 30px auto;
+  box-shadow: var(--shadow);
+}
+
+.no-results {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.hint {
+  font-size: 1rem;
+  color: #666;
+}
+
+.loading-state p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--accent-green);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
 }
