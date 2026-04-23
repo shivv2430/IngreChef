@@ -11,15 +11,19 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [searchLabel, setSearchLabel] = useState("");
 
-  const API_URL = "https://api.api-ninjas.com/v1/recipe";
-  const API_KEY = "api-key";
-
   const performFetch = async (term) => {
-    const response = await fetch(`${API_URL}?query=${term}`, {
-      headers: { "X-Api-Key": API_KEY },
-    });
+    // TheMealDB works best with single ingredients for filtering
+    const ingredient = term.split(/[ ,]+/)[0]; 
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
     if (!response.ok) throw new Error("API Error");
-    return await response.json();
+    const data = await response.json();
+    
+    // Map MealDB format to our app format
+    return data.meals ? data.meals.map(meal => ({
+      title: meal.strMeal,
+      image: meal.strMealThumb,
+      id: meal.idMeal
+    })) : [];
   };
 
   const fetchRecipes = async (searchQuery = query) => {
@@ -29,29 +33,15 @@ const App = () => {
     setShowRecipes(true);
     setSearchLabel("");
 
-    const normalizedQuery = searchQuery.trim().replace(/,/g, ' ');
-
     try {
-      console.log("IngreChef: Attempting full search for:", normalizedQuery);
-      const data = await performFetch(normalizedQuery);
+      console.log("IngreChef: Searching MealDB for:", searchQuery);
+      const recipesFound = await performFetch(searchQuery);
 
-      if (data && data.length > 0) {
-        setRecipes(data);
-        console.log("IngreChef: Success with full query.");
+      if (recipesFound.length > 0) {
+        setRecipes(recipesFound);
       } else {
-        // Fallback logic: Try searching for just the first word
-        const words = normalizedQuery.split(/\s+/);
-        const firstIngredient = words[0];
-
-        if (firstIngredient && words.length > 1) {
-          console.log("IngreChef: No results for full query. Falling back to:", firstIngredient);
-          setSearchLabel(`No direct match for your list. Showing results for "${firstIngredient}" instead.`);
-
-          const fallbackData = await performFetch(firstIngredient);
-          setRecipes(fallbackData || []);
-        } else {
-          setRecipes([]);
-        }
+        setRecipes([]);
+        setSearchLabel(`No recipes found for "${searchQuery}". Try a different ingredient!`);
       }
     } catch (error) {
       console.error("IngreChef: Error:", error);
